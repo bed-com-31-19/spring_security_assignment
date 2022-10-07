@@ -40,6 +40,7 @@ public class UserController {
         return userService.getAllUsers(page, size, pagedResourcesAssembler);
     }
 
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_EXECUTIVE"})
     @GetMapping("/me")
     public ResponseEntity<UserModel> getUserDetails(Authentication authentication){
         return userService.getUser(authentication);

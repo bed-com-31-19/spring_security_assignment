@@ -2,11 +2,11 @@ package com.spring.security.demo.user;
 
 import com.spring.security.demo.commons.ApiResponse;
 import com.spring.security.demo.user.hateoas.UserModel;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +32,7 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') and hasRole('ROLE_EXECUTIVE')")
     @GetMapping
     public ResponseEntity<PagedModel<?>> getAllUsers(@PositiveOrZero  @RequestParam(value="page", defaultValue = "0") int page,
                                                       @Positive @RequestParam(value="size", defaultValue = "20") int size,

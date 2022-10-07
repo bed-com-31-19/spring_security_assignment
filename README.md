@@ -1,3 +1,6 @@
+NOTE: I used @PreAuthorize instead of @PostAuthorize beacause in @PostAuthorize the authorization would get delayed after execution of the target method
+
+
 This project contains a shell for bootraping the access control assignment. Fork the repository and then clone your forked repo on 
 your local machines and configure it according to the steps outlines below
 

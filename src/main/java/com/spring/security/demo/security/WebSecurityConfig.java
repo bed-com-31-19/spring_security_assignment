@@ -24,6 +24,11 @@ import java.util.Collections;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
@@ -35,7 +40,7 @@ public class WebSecurityConfig {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/v1/auth/login", "/api/v1/auth/refresh-token").permitAll();
-        http.authorizeRequests().antMatchers("/api/v1/users").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/users").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(tokenUtility()), UsernamePasswordAuthenticationFilter.class);
